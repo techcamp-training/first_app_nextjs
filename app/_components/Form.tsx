@@ -1,9 +1,13 @@
 "use client"
 
 import React, { useRef } from "react";
+import { Post } from "@/app/_type/Post";
 
+interface FormProps {
+  addPost: (newPost: Post) => void;
+}
 
-export const Form: React.FC = () => {
+export const Form: React.FC<FormProps> = ({ addPost }) => {
   const content = useRef<HTMLInputElement>(null);
 
   const handleClick = async (e: any) => {
@@ -20,6 +24,7 @@ export const Form: React.FC = () => {
       });
 
       const data = await response.json();
+      addPost(data.post);
 
       // responseがOKで返却されている、かつ入力フォームに値があればリセット。
       if(response.ok && contentValue) {
