@@ -13,6 +13,13 @@ interface Post {
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+
+  // 日付変換表のメソッド
+  const changeFormat = (date: Date) => {
+    return new Date(date).toLocaleDateString("ja-JP", {year: "numeric",month: "2-digit",
+      day: "2-digit"})
+  }
+
   
   useEffect(()=> {
     const fetchPosts = async () => {
@@ -42,9 +49,9 @@ const Home: React.FC = () => {
         <ul>
           {posts.map((post) => {
             return(
-              <li key={post.id}>
+              <li key={post.id} className="post">
                 <p>{post.content}</p>
-                <p>{post.createdAt.toString()}</p>
+                <p className="post-date">{changeFormat(post.createdAt)}</p>
               </li>
             )
           })}
