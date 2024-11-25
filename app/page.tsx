@@ -7,19 +7,23 @@ import React, { useEffect, useState } from "react";
 interface Post {
   id: string;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   // 日付変換表のメソッド
-  const changeFormat = (date: Date) => {
+  const changeFormat = (date: string) => {
     return new Date(date).toLocaleDateString("ja-JP", {year: "numeric",month: "2-digit",
       day: "2-digit"})
   }
 
+  // 一覧表示データの更新
+  const addPost = (newPost: Post) => {
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+  }
   
   useEffect(()=> {
     const fetchPosts = async () => {
@@ -44,7 +48,7 @@ const Home: React.FC = () => {
   return (
     <>
       <h2>トップページ</h2>
-      <Form />
+      <Form addPost={addPost}/>
       <div>
         <ul>
           {posts.map((post) => {
