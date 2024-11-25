@@ -3,13 +3,7 @@
 
 import { Form } from "@/app/_components/Form"
 import React, { useEffect, useState } from "react";
-
-interface Post {
-  id: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Post } from "@/app/_type/Post";
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
