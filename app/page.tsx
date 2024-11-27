@@ -21,6 +21,12 @@ const Home: React.FC = () => {
     );
   }
 
+  const deletePost = (deletedPost: ResponsePost) => {
+    setPosts((prevPosts) => 
+      prevPosts.filter(post => post.id !== deletedPost.id)
+    );
+  }
+
   useEffect(()=> {
     const fetchPosts = async () => {
       try {
@@ -49,7 +55,7 @@ const Home: React.FC = () => {
         <ul>
           {posts.map((post) => {
             return(
-              <Post key={post.id} post={post} updatePost={updatePost} />
+              <Post key={post.id} post={post} updatePost={updatePost} deletedPost={deletePost}/>
             )
           })}
         </ul>
