@@ -2,23 +2,24 @@
 "use client"
 
 import { Form } from "@/app/_components/Form"
-import React, { useEffect, useState } from "react";
-import { Post } from "@/app/_type/Post";
+import React, { useEffect, useState, useRef } from "react";
+import { ResponsePost } from "@/app/_type/ResponsePost";
+import { Post } from "@/app/_components/Post";
 
 const Home: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-
-  // 日付変換表のメソッド
-  const changeFormat = (date: string) => {
-    return new Date(date).toLocaleDateString("ja-JP", {year: "numeric",month: "2-digit",
-      day: "2-digit"})
-  }
+  const [posts, setPosts] = useState<ResponsePost[]>([]);
 
   // 一覧表示データの更新
-  const addPost = (newPost: Post) => {
+  const addPost = (newPost: ResponsePost) => {
     setPosts((prevPosts) => [...prevPosts, newPost]);
   }
-  
+
+  const updatePost = (updatedPost: ResponsePost) => {
+    setPosts((prevPosts) => 
+      prevPosts.map(post => post.id === updatedPost.id ? updatedPost : post)
+    );
+  }
+
   useEffect(()=> {
     const fetchPosts = async () => {
       try {
@@ -27,7 +28,7 @@ const Home: React.FC = () => {
             "Content-Type": "application/json",
           },
         });
-        const { posts }: { posts: Post[] }= await response.json();
+        const { posts }: { posts: ResponsePost[] }= await response.json();
         setPosts(posts)
 
       } catch (error){
@@ -47,10 +48,7 @@ const Home: React.FC = () => {
         <ul>
           {posts.map((post) => {
             return(
-              <li key={post.id} className="post">
-                <p>{post.content}</p>
-                <p className="post-date">{changeFormat(post.createdAt)}</p>
-              </li>
+              <Post key={post.id} post={post} updatePost={updatePost} />
             )
           })}
         </ul>
