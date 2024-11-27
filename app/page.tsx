@@ -2,7 +2,7 @@
 "use client"
 
 import { Form } from "@/app/_components/Form"
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { ResponsePost } from "@/app/_type/ResponsePost";
 import { Post } from "@/app/_components/Post";
 
@@ -15,6 +15,7 @@ const Home: React.FC = () => {
   }
 
   const updatePost = (updatedPost: ResponsePost) => {
+    // setPostsが実行された時点でのpostsのデータがprevPostsに格納される
     setPosts((prevPosts) => 
       prevPosts.map(post => post.id === updatedPost.id ? updatedPost : post)
     );
