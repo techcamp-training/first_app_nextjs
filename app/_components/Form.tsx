@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useRef } from "react";
-import { Post } from "@/app/_type/Post";
+import { ResponsePost } from "@/app/_type/ResponsePost";
 
 interface FormProps {
-  addPost: (newPost: Post) => void;
+  addPost: (newPost: ResponsePost) => void;
 }
 
 export const Form: React.FC<FormProps> = ({ addPost }) => {
