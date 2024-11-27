@@ -6,9 +6,11 @@ import { ResponsePost } from "@/app/_type/ResponsePost";
 interface PostProps {
   post: ResponsePost;
   updatePost: (updatedPost: ResponsePost) => void;
+  deletedPost: (deletedPost: ResponsePost) => void;
+
 }
 
-export const Post: React.FC<PostProps> = ({post, updatePost}) => {
+export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
   const [isEditing, setIsEditing] = useState(false);
   const content = useRef<HTMLInputElement>(null);
   const [editContent, setEditContent] = useState(post.content);
@@ -33,7 +35,26 @@ export const Post: React.FC<PostProps> = ({post, updatePost}) => {
       console.log("APIリクエストエラー", error);
       throw new Error("更新に失敗しました");
     }
-    
+  }
+
+  const handleDelete = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`/api/posts/${post.id}`, {
+        method: "DELETE",
+        headers: {
+        "Content-Type": "application/json",
+        },
+      })
+
+      const data = await response.json();
+      deletedPost(data.post);
+
+    } catch (error) {{{
+      console.log("APIリクエストエラー", error);
+      throw new Error("削除に失敗しました");
+    }}} 
   }
   
   // 日付変換表のメソッド
@@ -58,6 +79,7 @@ export const Post: React.FC<PostProps> = ({post, updatePost}) => {
       ) : (
         <button onClick={() => setIsEditing(true)}>編集</button>
       )}
+      <button onClick={handleDelete}>削除</button>
   </li>
   )
 }
