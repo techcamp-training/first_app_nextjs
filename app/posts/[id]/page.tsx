@@ -27,13 +27,24 @@ const ShowPage: React.FC = () => {
     fetchPost();
   },[post])
 
+  // 日付変換表のメソッド
+  const changeFormat = (date: string) => {
+    return new Date(date).toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    });
+  }
+
   if (!post) return ;
 
   return(
     <>
       <h2>詳細ページ</h2>
-      <p>内容：{post.content}</p>
-      <p>投稿日：{post.createdAt}</p>
+      <div className='post'>
+        <p>内容：{post.content}</p>
+        <p>投稿日：{changeFormat(post.createdAt)}</p>
+      </div>
     </>
   )
 }

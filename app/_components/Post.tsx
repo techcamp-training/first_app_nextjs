@@ -30,8 +30,8 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
 
       const data = await response.json();
       updatePost(data.post);
+      setEditContent(data.post.content);
       setIsEditing(false);
-
     } catch(error) {
       console.log("APIリクエストエラー", error);
       throw new Error("更新に失敗しました");
@@ -58,15 +58,6 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
     }}} 
   }
   
-  // 日付変換表のメソッド
-  const changeFormat = (date: string) => {
-    return new Date(date).toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
-    });
-  }
-
   return(
     <li className="post">
       {isEditing ? (
@@ -83,13 +74,7 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
 
         </>
       )}
-      {/* {isEditing ? (
-        // <button onClick={handleUpdate}>更新</button>
-      ) : (
-        <button onClick={() => setIsEditing(true)}>編集</button>
-      )} */}
       <button onClick={handleDelete}>削除</button>
-      {/* <Link href={`/posts/${post.id}`}>詳細</Link> */}
   </li>
   )
 }
