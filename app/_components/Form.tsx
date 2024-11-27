@@ -31,7 +31,6 @@ export const Form: React.FC<FormProps> = ({ addPost }) => {
         content.current.value = "";
       }
       
-
     } catch(error) {
       console.log("APIリクエストエラー", error);
       throw new Error("投稿に失敗しました");

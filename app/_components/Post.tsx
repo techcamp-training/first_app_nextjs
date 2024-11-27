@@ -2,12 +2,12 @@
 
 import React, { useState, useRef} from "react";
 import { ResponsePost } from "@/app/_type/ResponsePost";
+import Link from "next/link";
 
 interface PostProps {
   post: ResponsePost;
   updatePost: (updatedPost: ResponsePost) => void;
   deletedPost: (deletedPost: ResponsePost) => void;
-
 }
 
 export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
@@ -30,6 +30,7 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
 
       const data = await response.json();
       updatePost(data.post);
+      setEditContent(data.post.content);
       setIsEditing(false);
     } catch(error) {
       console.log("APIリクエストエラー", error);
@@ -57,27 +58,21 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
     }}} 
   }
   
-  // 日付変換表のメソッド
-  const changeFormat = (date: string) => {
-    return new Date(date).toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
-    });
-  }
-
   return(
     <li className="post">
       {isEditing ? (
-        <input type="text" name="content" ref={content} defaultValue={editContent}/>
+        <>
+          <input type="text" name="content" ref={content} defaultValue={editContent}/>
+          <button onClick={handleUpdate}>更新</button>
+        </>
       ) : (
-        <p>{post.content}</p>
-      )}
-      <p className="post-date">{changeFormat(post.createdAt)}</p>
-      {isEditing ? (
-        <button onClick={handleUpdate}>更新</button>
-      ) : (
-        <button onClick={() => setIsEditing(true)}>編集</button>
+        <>
+          <Link href={`/posts/${post.id}`}>
+            <p>{post.content}</p>
+          </Link>
+          <button onClick={() => setIsEditing(true)}>編集</button>
+
+        </>
       )}
       <button onClick={handleDelete}>削除</button>
   </li>

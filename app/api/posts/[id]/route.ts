@@ -40,3 +40,24 @@ export const DELETE = async (request: NextRequest, { params}: { params: { id: st
     return NextResponse.json({ response: "error", message: "削除に失敗しました"}, { status: 500 })
   }
 }
+
+export const GET = async (request: NextRequest, { params}: { params: { id: string }}) => {
+  const { id } = await params;
+  const postId = parseInt(id, 10);
+
+  try {
+    const showPost = await prisma.post.findUnique({
+      where: {
+        id: postId
+      },
+    })
+
+    if (!showPost) {
+      throw new Error("Not found")
+    }
+
+    return NextResponse.json({ response: "ok", post: showPost }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ response: "error", message: "削除に失敗しました"}, { status: 500 })
+  }
+}
