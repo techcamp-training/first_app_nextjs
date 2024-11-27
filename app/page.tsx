@@ -55,7 +55,12 @@ const Home: React.FC = () => {
         <ul>
           {posts.map((post) => {
             return(
-              <Post key={post.id} post={post} updatePost={updatePost} deletedPost={deletePost}/>
+              <Post 
+                key={post.id}
+                post={post}
+                updatePost={updatePost}
+                deletedPost={deletePost}
+              />
             )
           })}
         </ul>

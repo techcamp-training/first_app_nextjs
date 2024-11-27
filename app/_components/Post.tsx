@@ -83,4 +83,3 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
   </li>
   )
 }
-
