@@ -39,9 +39,20 @@ export const Form: React.FC<FormProps> = ({ addPost }) => {
   }
 
   return(
-    <form>
-      <input type="text" name="content" ref={content}/>
-      <button type="submit" onClick={handleClick}>投稿する</button>
+    <form className="form">
+      <input 
+        type="text"
+        name="content"
+        ref={content}
+        className="input-form"
+      />
+      <button 
+        type="submit"
+        onClick={handleClick}
+        className="submit-btn"
+        >
+        投稿する
+      </button>
     </form>
   )
 }

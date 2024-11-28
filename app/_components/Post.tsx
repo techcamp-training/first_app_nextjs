@@ -62,8 +62,16 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
     <li className="post">
       {isEditing ? (
         <>
-          <input type="text" name="content" ref={content} defaultValue={editContent}/>
-          <button onClick={handleUpdate}>更新</button>
+          <div className="form">
+            <input 
+              type="text"
+              name="content"
+              ref={content}
+              defaultValue={editContent}
+              className="input-form"
+            />
+            <button className="btn" onClick={handleUpdate}>更新</button>
+          </div>
         </>
       ) : (
         <>
