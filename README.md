@@ -1,3 +1,22 @@
+# 実装機能
+## 一覧表示
+![一覧表示](https://github.com/user-attachments/assets/6f9d352e-ab11-4e54-9f6c-35309032c894)
+
+## 投稿機能
+![投稿機能](https://github.com/user-attachments/assets/03647c43-22fa-4b33-a242-e6a50bd4e7ea)
+
+## 詳細表示機能
+![詳細表示機能](https://github.com/user-attachments/assets/152ddbd5-8943-4e0a-9737-71dd64f9736b)
+
+## 編集機能
+![編集機能](https://github.com/user-attachments/assets/8f9ce421-2a27-4545-9dde-625b0aa97f99)
+
+## 削除機能
+![削除機能](https://github.com/user-attachments/assets/06b5e627-fd00-4b65-a7b5-71a5568d2651)
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
