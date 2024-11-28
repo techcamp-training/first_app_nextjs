@@ -8,6 +8,7 @@ const ShowPage: React.FC = () => {
 
   const params = useParams();
   const [post, setPost] = useState<ResponsePost | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(()=> {
     const fetchPost = async() => {
@@ -19,13 +20,14 @@ const ShowPage: React.FC = () => {
         });
         const { post } = await response.json();
         setPost(post)
+        setIsLoading(false)
       } catch(error) {
         console.log("APIリクエストエラー", error);
         throw new Error("投稿の取得ができませんでした");
       }
     }
     fetchPost();
-  },[post])
+  },[])
 
   // 日付変換表のメソッド
   const changeFormat = (date: string) => {
@@ -41,10 +43,14 @@ const ShowPage: React.FC = () => {
   return(
     <>
       <h2>詳細ページ</h2>
-      <div className='post'>
-        <p>内容：{post.content}</p>
-        <p>投稿日：{changeFormat(post.createdAt)}</p>
-      </div>
+      {isLoading ? (
+        <p>読み込み中...</p>
+      ) : (
+        <div className='post'>
+          <p>内容：{post.content}</p>
+          <p>投稿日：{changeFormat(post.createdAt)}</p>
+        </div>
+      )}
     </>
   )
 }
