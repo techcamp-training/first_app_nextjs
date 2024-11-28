@@ -15,7 +15,7 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
   const content = useRef<HTMLInputElement>(null);
   const [editContent, setEditContent] = useState(post.content);
 
-  const handleUpdate = async (e: any) => {
+  const handleUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const contentValue = content.current?.value;
     
@@ -38,7 +38,7 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
     }
   }
 
-  const handleDelete = async (e: any) => {
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {
@@ -70,11 +70,12 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
           <Link href={`/posts/${post.id}`}>
             <p>{post.content}</p>
           </Link>
-          <button onClick={() => setIsEditing(true)}>編集</button>
-
+          <div className="btn-list">
+            <button className="btn" onClick={() => setIsEditing(true)}>編集</button>
+            <button className="btn" onClick={handleDelete}>削除</button>
+          </div>
         </>
       )}
-      <button onClick={handleDelete}>削除</button>
   </li>
   )
 }

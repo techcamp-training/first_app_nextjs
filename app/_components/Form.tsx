@@ -10,7 +10,7 @@ interface FormProps {
 export const Form: React.FC<FormProps> = ({ addPost }) => {
   const content = useRef<HTMLInputElement>(null);
 
-  const handleClick = async (e: any) => {
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const contentValue = content.current?.value
     
