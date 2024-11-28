@@ -1,4 +1,3 @@
-// import styles from "./page.module.css";
 "use client"
 
 import { Form } from "@/app/_components/Form"
@@ -8,6 +7,7 @@ import { Post } from "@/app/_components/Post";
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<ResponsePost[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // 一覧表示データの更新
   const addPost = (newPost: ResponsePost) => {
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
         });
         const { posts }: { posts: ResponsePost[] }= await response.json();
         setPosts(posts)
-
+        setIsLoading(false)
       } catch (error){
         console.log("APIリクエストエラー", error);
         throw new Error("投稿の取得ができませんでした");
@@ -52,18 +52,22 @@ const Home: React.FC = () => {
       <h2>トップページ</h2>
       <Form addPost={addPost}/>
       <div>
-        <ul>
-          {posts.map((post) => {
-            return(
-              <Post 
-                key={post.id}
-                post={post}
-                updatePost={updatePost}
-                deletedPost={deletePost}
-              />
-            )
-          })}
-        </ul>
+        {isLoading ? (
+          <p>読み込み中...</p>
+        ) : (
+          <ul>
+            {posts.map((post) => {
+              return(
+                <Post 
+                  key={post.id}
+                  post={post}
+                  updatePost={updatePost}
+                  deletedPost={deletePost}
+                />
+              )
+            })}
+          </ul>
+        )}
       </div>
     </>
   );
