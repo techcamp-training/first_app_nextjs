@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export const PUT = async (request: NextRequest, { params }: { Promise<{ id: string }> }) => {
+export const PUT = async (request: NextRequest, { params }: { params :Promise<{ id: string }> }) => {
   const { id } =  await params;
   const postId = parseInt(id, 10);
   const { content } = await request.json();
@@ -24,7 +24,7 @@ export const PUT = async (request: NextRequest, { params }: { Promise<{ id: stri
   }
 }
 
-export const DELETE = async (request: NextRequest, { params}: { Promise<{ id: string }>}) => {
+export const DELETE = async (request: NextRequest, { params}: { params : Promise<{ id: string }>}) => {
   const { id } = await params;
   const postId = parseInt(id, 10);
 
@@ -41,7 +41,7 @@ export const DELETE = async (request: NextRequest, { params}: { Promise<{ id: st
   }
 }
 
-export const GET = async (request: NextRequest, { params}: { Promise<{ id: string }>}) => {
+export const GET = async (request: NextRequest, { params}: { params : Promise<{ id: string }>}) => {
   const { id } = await params;
   const postId = parseInt(id, 10);
 
