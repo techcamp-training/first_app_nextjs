@@ -1,9 +1,9 @@
 "use client"
 
-import { Form } from "@/app/_components/Form"
+import { Form } from "./_components/Form"
 import React, { useEffect, useState } from "react";
 import { ResponsePost } from "@/app/_type/ResponsePost";
-import { Post } from "@/app/_components/Post";
+import { Post } from "./_components/Post";
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<ResponsePost[]>([]);
