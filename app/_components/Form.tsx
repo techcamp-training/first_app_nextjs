@@ -40,7 +40,8 @@ export const Form: React.FC<FormProps> = ({ addPost }) => {
 
   return(
     <form className="form">
-      <input 
+      <input
+        id="content" 
         type="text"
         name="content"
         ref={content}
