@@ -70,7 +70,7 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
   
   return(
     <li className="post">
-      {error && <div>{error}</div>}
+      {error && <div className="error-message">{error}</div>}
       {isEditing ? (
         <>
           <div className="form">

@@ -42,7 +42,7 @@ export const Form: React.FC<FormProps> = ({ addPost }) => {
 
   return(
     <>
-      {error && <div>{error}</div>}
+      {error && <div className="error-message">{error}</div>}
       <form className="form">
         <input
           id="content" 
