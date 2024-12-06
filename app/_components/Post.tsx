@@ -13,6 +13,7 @@ interface PostProps {
 export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
   const [isEditing, setIsEditing] = useState(false);
   const content = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<string | null>(null); 
   const [editContent, setEditContent] = useState(post.content);
 
   const handleUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,13 +29,18 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
         body: JSON.stringify({content: contentValue})
       });
 
+      if(!response.ok) {
+        throw new Error("更新に失敗しました");
+      }
+
       const data = await response.json();
       updatePost(data.post);
       setEditContent(data.post.content);
-      setIsEditing(false);
     } catch(error) {
       console.log("APIリクエストエラー", error);
-      throw new Error("更新に失敗しました");
+      setError("更新に失敗しました")
+    } finally {
+      setIsEditing(false);
     }
   }
 
@@ -49,17 +55,22 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
         },
       })
 
+      if(!response.ok) {
+        throw new Error("削除に失敗しました");
+      }
+
       const data = await response.json();
       deletedPost(data.post);
 
     } catch (error) {{{
       console.log("APIリクエストエラー", error);
-      throw new Error("削除に失敗しました");
+      setError("削除に失敗しました")
     }}} 
   }
   
   return(
     <li className="post">
+      {error && <div>{error}</div>}
       {isEditing ? (
         <>
           <div className="form">
