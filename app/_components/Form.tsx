@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { ResponsePost } from "@/app/_type/ResponsePost";
 
 interface FormProps {
@@ -9,6 +9,7 @@ interface FormProps {
 
 export const Form: React.FC<FormProps> = ({ addPost }) => {
   const content = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -23,37 +24,41 @@ export const Form: React.FC<FormProps> = ({ addPost }) => {
         body: JSON.stringify({content: contentValue})
       });
 
+      if (!response.ok) {
+        throw new Error("投稿に失敗しました");
+      }
+
       const data = await response.json();
       addPost(data.post);
 
       // responseがOKで返却されている、かつ入力フォームに値があればリセット。
-      if(response.ok && contentValue) {
-        content.current.value = "";
-      }
-      
+       content.current && (content.current.value = "");
+        
     } catch(error) {
       console.log("APIリクエストエラー", error);
-      throw new Error("投稿に失敗しました");
-    }
-    
+      setError("投稿に失敗しました")
+    } 
   }
 
   return(
-    <form className="form">
-      <input
-        id="content" 
-        type="text"
-        name="content"
-        ref={content}
-        className="input-form"
-      />
-      <button 
-        type="submit"
-        onClick={handleClick}
-        className="submit-btn"
-        >
-        投稿する
-      </button>
-    </form>
+    <>
+      {error && <div>{error}</div>}
+      <form className="form">
+        <input
+          id="content" 
+          type="text"
+          name="content"
+          ref={content}
+          className="input-form"
+        />
+        <button 
+          type="submit"
+          onClick={handleClick}
+          className="submit-btn"
+          >
+          投稿する
+        </button>
+      </form>
+    </>
   )
 }
