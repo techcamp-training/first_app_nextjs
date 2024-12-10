@@ -50,6 +50,7 @@ export const Form: React.FC<FormProps> = ({ addPost }) => {
           name="update-content"
           ref={content}
           className="input-form"
+          data-testid="content" 
         />
         <button 
           type="submit"
