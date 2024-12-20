@@ -76,7 +76,7 @@ export const Post: React.FC<PostProps> = ({post, updatePost, deletedPost}) => {
           <div className="form">
             <input 
               type="text"
-              name="content"
+              name="update-content"
               ref={content}
               defaultValue={editContent}
               className="input-form"
